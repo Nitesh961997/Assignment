@@ -6,7 +6,11 @@ absent=0
 perHourWage=20
 fulltimeHrs=8
 parttimeHrs=4
-for (( i=1; i<=20; i++ ))
+maxDaysPerMonth=20
+noOfWorkingDays=1
+maxHrsPerMonth=100
+totalHrs=0
+while [[ $maxHrsPerMonth -gt $totalHrs && $noOfWorkingDays -lt $maxDaysPerMonth ]]
 do
 	observation=$((RANDOM%3))
 	case $observation in
@@ -15,14 +19,19 @@ do
 			;;
 		1)
 			empHrs=4
+			((noOfWorkingDays++))
 			;;
 		2)
 			empHrs=8
+			((noOfWorkingDays++))
 			;;
 		*)
 			echo invalid input
 			;;
 	esac
+	totalWorkingDays=$noOfWorkingDays	
+	totalHrs=$(($totalHrs+$empHrs))
 	dailyWage=$(($empHrs*$perHourWage))
 	totalSalary=$(($totalSalary+$dailyWage))
 done
+`
