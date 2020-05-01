@@ -36,7 +36,8 @@ do
 		then
 			((noOfWorkingDays++))
 	fi
-	totalWorkingDays=$noOfWorkingDays	
+	totalWorkingDays=$noOfWorkingDays
+	perDayWage[$(($noOfWorkingDays))]=$(($empHrs*$perHourWage))
 	totalHrs=$(($totalHrs+$empHrs))
 	dailyWage=$(($empHrs*$perHourWage))
 	totalSalary=$(($totalSalary+$dailyWage))
