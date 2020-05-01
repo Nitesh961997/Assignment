@@ -10,28 +10,35 @@ maxDaysPerMonth=20
 noOfWorkingDays=1
 maxHrsPerMonth=100
 totalHrs=0
+function getWorkHrs()
+{
+case $observation in
+	0)
+		empHrs=0
+		;;
+	1)
+		empHrs=4
+		;;
+	2)
+		empHrs=8
+		;;
+	*)
+		echo invalid input
+		;;
+esac
+echo $empHrs
+}
 while [[ $maxHrsPerMonth -gt $totalHrs && $noOfWorkingDays -lt $maxDaysPerMonth ]]
 do
 	observation=$((RANDOM%3))
-	case $observation in
-		0)
-			empHrs=0
-			;;
-		1)
-			empHrs=4
+	empHrs="$(getWorkHrs $observation)"
+	if [ $empHrs -ne 0 ]
+		then
 			((noOfWorkingDays++))
-			;;
-		2)
-			empHrs=8
-			((noOfWorkingDays++))
-			;;
-		*)
-			echo invalid input
-			;;
-	esac
+	fi
 	totalWorkingDays=$noOfWorkingDays	
 	totalHrs=$(($totalHrs+$empHrs))
 	dailyWage=$(($empHrs*$perHourWage))
 	totalSalary=$(($totalSalary+$dailyWage))
 done
-`
+
