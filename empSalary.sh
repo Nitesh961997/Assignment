@@ -10,6 +10,7 @@ maxDaysPerMonth=20
 noOfWorkingDays=1
 maxHrsPerMonth=100
 totalHrs=0
+declare -A perDayWage
 function getWorkHrs()
 {
 case $observation in
@@ -37,9 +38,12 @@ do
 			((noOfWorkingDays++))
 	fi
 	totalWorkingDays=$noOfWorkingDays
-	perDayWage[$(($noOfWorkingDays))]=$(($empHrs*$perHourWage))
+	perDayWage["Day"$noOfWorkingDays]=$(($empHrs*$perHourWage))
 	totalHrs=$(($totalHrs+$empHrs))
 	dailyWage=$(($empHrs*$perHourWage))
 	totalSalary=$(($totalSalary+$dailyWage))
 done
+echo ${!perDayWage[@]}
+echo ${perDayWage[@]}
+
 
